@@ -34,7 +34,7 @@ android {
     }
     productFlavors{
         monitoring{
-            buildConfigField 'boolean', 'ENABLE_ATTACKER_SERVICE', 'true'
+            buildConfigField 'boolean', 'ENABLE_ATTACKER_SERVICE', 'false'
             buildConfigField 'boolean', 'SANITY_CHECK_ATTACKER_SERVICE', 'false'
             buildConfigField 'boolean', 'START_APP_ON_BOOT', 'true'
             buildConfigField 'boolean', 'CLOSE_APP', 'true'
