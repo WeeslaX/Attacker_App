@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Attacker App</string>
+
+    <!-- Notification Related Strings -->
+    <string name="notification_label">Attacker App Notification</string>
+    <string name="notification_channel_name">Normal</string>
+    <string name="notification_channel_id">com.attacker.app.normal</string>
+    <string name="notification_title">Attacker App Notification</string>
+    <string name="notification_channel_desc">Displays notification from com.attacker.app</string>
+
+    <string name="persistent_channel_id">com.attacker.app.persistent</string>
+    <string name="persistent_notification_name">AttackerService</string>
+    <string name="persistent_desc">For attacker service use</string>
+    <string name="persistent_title">Attack Service Notification</string>
+</resources>
