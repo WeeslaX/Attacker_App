@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Attacker App</string>
+    <string name="app_name">Attacker</string>
 
     <!-- Notification Related Strings -->
     <string name="notification_label">Attacker App Notification</string>
