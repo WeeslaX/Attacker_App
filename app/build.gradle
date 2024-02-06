@@ -34,7 +34,12 @@ android {
     }
     productFlavors{
         monitoring{
-            buildConfigField 'boolean', 'ENABLE_ATTACKER_SERVICE', 'false'
+            buildConfigField 'boolean', 'ENABLE_ATTACKER_SERVICE', 'true'
+
+            // Attack Configuration
+            buildConfigField 'boolean', 'LOCAL_SOCKET_MITM_ATTACK', 'true'
+
+            // QOL Settings
             buildConfigField 'boolean', 'SANITY_CHECK_ATTACKER_SERVICE', 'false'
             buildConfigField 'boolean', 'START_APP_ON_BOOT', 'true'
             buildConfigField 'boolean', 'CLOSE_APP', 'true'
@@ -55,4 +60,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    
 }
