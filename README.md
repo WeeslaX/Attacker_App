@@ -4,6 +4,20 @@ Work in progress app. List of possible attacks and configurations will be listed
 
 Insecure Target - https://github.com/WeeslaX/Insecure_Target
 
+## Dynamic Code Injection Attack
+Utilizes Create Package Context vulnerability on Insecure Target app to perform arbituary code injection.
+
+`initialize` method from `com.attacker.app.utils.CodeToLoad` class is injected.
+
+<u>Insecure Target App </u>
+* buildConfigField 'String', 'TARGET_PACKAGE_PREFIX_FOR_DCL', "\"com.attacker\""
+
+Steps
+1. Run Attacker App and accept all permissions
+2. Run Insecure Target App
+3. Select "Create Package Context Scanning" button
+4. Verify that Toast Message of successful injection is displayed
+
 ## Local Socket MITM Attack
 Ensure the following settings are set with build.gradle:
 
