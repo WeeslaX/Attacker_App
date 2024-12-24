@@ -39,6 +39,11 @@ android {
             // Attack Configuration
             buildConfigField 'boolean', 'LOCAL_SOCKET_MITM_ATTACK', 'true'
 
+            // StrandHogg v2 Configuration
+            buildConfigField 'boolean', 'STRANDHOGG_TWO_ATTACK', 'false'
+            buildConfigField 'String', 'TARGET_PACKAGE_NAME', '\"sg.insecure.insecuretarget\"'
+            buildConfigField 'String', 'TARGET_ACTIVITY', '\"sg.insecure.insecuretarget.StrandhoggVulActivity\"'
+
             // QOL Settings
             buildConfigField 'boolean', 'SANITY_CHECK_ATTACKER_SERVICE', 'false'
             buildConfigField 'boolean', 'START_APP_ON_BOOT', 'true'

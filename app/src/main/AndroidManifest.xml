@@ -65,6 +65,10 @@
             </intent-filter>
         </activity>
 
+        <!-- StrandHogg v2 Activities      -->
+        <activity android:name=".strandhogg.DistractionActivity" />
+        <activity android:name=".strandhogg.MaliciousActivity" />
+
         <!-- Service Declaration -->
         <service android:name=".service.AttackerService" />
 

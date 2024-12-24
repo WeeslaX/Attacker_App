@@ -4,12 +4,31 @@ Work in progress app. List of possible attacks and configurations will be listed
 
 Insecure Target - https://github.com/WeeslaX/Insecure_Target
 
+## StrandHogg v2 Attack
+Applicable only on Android 9 devices and older.
+* Highly Targeted attack, requires target activity to be exported.
+
+<u>Attacker App  - Monitoring Flavour </u>
+
+* `buildConfigField 'boolean', 'STRANDHOGG_TWO_ATTACK', 'true'`
+* `buildConfigField 'String', 'TARGET_PACKAGE_NAME', '\"sg.insecure.insecuretarget\"'`
+* `buildConfigField 'String', 'TARGET_ACTIVITY', '\"sg.insecure.insecuretarget.StrandhoggVulActivity\"'`
+* `buildConfigField 'boolean', 'CLOSE_APP', 'false'`
+
+Steps
+1. Install Attacker App and Insecure Target App.
+2. Run Attacker App.
+3. Ensure that Distraction Activity is displayed.
+4. Minimise Attacker App.
+5. Run Insecure Target App.
+6. Verify that Malicious Activity is displayed instead. (Activity Hijack successful)
+
 ## Dynamic Code Injection Attack
 Utilizes Create Package Context vulnerability on Insecure Target app to perform arbituary code injection.
 
 `initialize` method from `com.attacker.app.utils.CodeToLoad` class is injected.
 
-<u>Insecure Target App </u>
+<u>Insecure Target App</u>
 * buildConfigField 'String', 'TARGET_PACKAGE_PREFIX_FOR_DCL', "\"com.attacker\""
 
 Steps
@@ -41,6 +60,5 @@ Steps
 7. Accept all permissions.
 8. Select "General Purpose Testing" button.
 9. Verify on Attack App's logcat that message from Secure app has been received.
-
 
 Note: Force stop Attacker App for Insecure App to resume use of socket in port 50000

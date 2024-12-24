@@ -12,4 +12,8 @@
     <string name="persistent_notification_name">AttackerService</string>
     <string name="persistent_desc">For attacker service use</string>
     <string name="persistent_title">Attack Service Notification</string>
+
+    <!-- StrandHogg v2 Attack -->
+    <string name="distraction_label"><u>Distraction Activity</u></string>
+    <string name="malicious_message">StrandHogg v2 Hijack Successful!</string>
 </resources>
