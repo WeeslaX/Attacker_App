@@ -37,6 +37,21 @@ Steps
 3. Select "Create Package Context Scanning" button
 4. Verify that Toast Message of successful injection is displayed
 
+## Intent Redirection Attack via exploiting grantUriPermissions="true"
+Exploiting Insecure Target App's misconfigured content provider to access secret_data.txt
+
+<u>Insecure Target App</u>
+* buildConfigField 'boolean', 'TEST_TEMPORARY_DB', 'true' - Note this will close the app for exploit to work. Disable if not testing exploit.
+
+<u>Attacker App  - Monitoring Flavour </u>
+* buildConfigField 'boolean', 'GRANT_URI_PERMISSIONS_EXPLOIT', 'true'
+
+Steps:
+1. Install both apps.
+2. Run Attacker App.
+3. Verify that secret_data.txt content is displayed on Logcat.
+
+
 ## Local Socket MITM Attack
 Ensure the following settings are set with build.gradle:
 

