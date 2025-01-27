@@ -45,12 +45,13 @@ android {
             buildConfigField 'String', 'TARGET_ACTIVITY', '\"sg.insecure.insecuretarget.StrandhoggVulActivity\"'
 
             // grantUriPermissions Exploit
-            buildConfigField 'boolean', 'GRANT_URI_PERMISSIONS_EXPLOIT', 'false'
+            buildConfigField 'boolean', 'INSECURE_TARGET_GRANT_URI_PERMISSIONS_EXPLOIT', 'false'
+            buildConfigField 'boolean', 'INTENT_REDIRECTION_EXPLOIT_EXPLORATION', 'false'
 
             // QOL Settings
             buildConfigField 'boolean', 'SANITY_CHECK_ATTACKER_SERVICE', 'false'
             buildConfigField 'boolean', 'START_APP_ON_BOOT', 'true'
-            buildConfigField 'boolean', 'CLOSE_APP', 'true'
+            buildConfigField 'boolean', 'CLOSE_APP', 'false'
         }
     }
 

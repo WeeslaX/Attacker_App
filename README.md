@@ -44,7 +44,8 @@ Exploiting Insecure Target App's misconfigured content provider to access secret
 * buildConfigField 'boolean', 'TEST_TEMPORARY_DB', 'true' - Note this will close the app for exploit to work. Disable if not testing exploit.
 
 <u>Attacker App  - Monitoring Flavour </u>
-* buildConfigField 'boolean', 'GRANT_URI_PERMISSIONS_EXPLOIT', 'true'
+* buildConfigField 'boolean', 'INSECURE_TARGET_GRANT_URI_PERMISSIONS_EXPLOIT', 'true'
+* buildConfigField 'boolean', 'CLOSE_APP', 'false'
 
 Steps:
 1. Install both apps.

