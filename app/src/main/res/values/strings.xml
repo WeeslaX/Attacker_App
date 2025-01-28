@@ -16,4 +16,13 @@
     <!-- StrandHogg v2 Attack -->
     <string name="distraction_label"><u>Distraction Activity</u></string>
     <string name="malicious_message">StrandHogg v2 Hijack Successful!</string>
+
+    <!-- openCloud Attack -->
+    <string name="opencloud_title_label">OpenCloud DB Exploit</string>
+    <string name="oc_blind_sql_btn">Blind SQL Exploit</string>
+    <string name="oc_query_btn">Query</string>
+    <string name="oc_insert_btn">Insert Data</string>
+    <string name="oc_delete_btn">Delete Data</string>
+    <string name="delete_id_label">Delete Id</string>
+
 </resources>

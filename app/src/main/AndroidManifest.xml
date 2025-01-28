@@ -68,6 +68,7 @@
         <!-- StrandHogg v2 Activities      -->
         <activity android:name=".strandhogg.DistractionActivity" />
         <activity android:name=".strandhogg.MaliciousActivity" />
+        <activity android:name=".opencloud.OwncloudProviderExploitActivity"/>
 
         <!-- Service Declaration -->
         <service android:name=".service.AttackerService" />

@@ -48,10 +48,14 @@ android {
             buildConfigField 'boolean', 'INSECURE_TARGET_GRANT_URI_PERMISSIONS_EXPLOIT', 'false'
             buildConfigField 'boolean', 'INTENT_REDIRECTION_EXPLOIT_EXPLORATION', 'false'
 
+            //openCloud Exploit
+            buildConfigField 'boolean', 'OPENCLOUD_FILELIST_EXPLOIT', 'false'
+            buildConfigField 'boolean', 'OPENCLOUD_FILELIST_EXPLOUT_POC', 'true'
+
             // QOL Settings
             buildConfigField 'boolean', 'SANITY_CHECK_ATTACKER_SERVICE', 'false'
-            buildConfigField 'boolean', 'START_APP_ON_BOOT', 'true'
-            buildConfigField 'boolean', 'CLOSE_APP', 'false'
+            buildConfigField 'boolean', 'START_APP_ON_BOOT', 'false'
+            buildConfigField 'boolean', 'CLOSE_APP', 'true'
         }
     }
 

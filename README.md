@@ -52,6 +52,28 @@ Steps:
 2. Run Attacker App.
 3. Verify that secret_data.txt content is displayed on Logcat.
 
+## OpenCloud Content Provider Exploit
+Exploit exposed opencloud's content provider via SQL and Blind SQL Injection
+
+<u>Attacker App  - Monitoring Flavour </u>
+* buildConfigField 'boolean', 'OPENCLOUD_FILELIST_EXPLOIT', 'false'
+* buildConfigField 'boolean', 'OPENCLOUD_FILELIST_EXPLOUT_POC', 'true'
+* buildConfigField 'boolean', 'CLOSE_APP', 'false'
+
+<u>OpenCloud App</u>
+* App Version 2.21.1
+* Requires OpenCloud running in a Docker image (Follow POC Instructions)
+* Currently POC only works on Android Emulator (*shrug*)
+* IMPORTANT: Before running Blind SQL Exploit, need to share any file first.
+
+Steps:
+1. Install both apps.
+2. Ensure OpenCloud is setup properly.
+3. Login with admin/admin
+4. Ensure that files are pulled from the "cloud" on all folders
+5. Share any folder. (Hold > select share > Public links > Save)
+6. Run Attacker App
+7. Free-play with UI.
 
 ## Local Socket MITM Attack
 Ensure the following settings are set with build.gradle:

